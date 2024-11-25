@@ -1,0 +1,75 @@
+From cc37de87ef1872012d7e46c0b6925a81ab171ea3 Mon Sep 17 00:00:00 2001
+From: Dmitry Pankov <dk.pankov@vk.team>
+Date: Mon, 22 Apr 2024 13:30:11 +0300
+Subject: [PATCH] fix compilation issues
+
+---
+ CMakeLists.txt           | 2 +-
+ VERSION                  | 1 -
+ src/lua/digest.lua       | 1 +
+ third_party/libeio/ecb.h | 2 +-
+ third_party/libev/ev.c   | 2 +-
+ 5 files changed, 4 insertions(+), 4 deletions(-)
+ delete mode 100644 VERSION
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f1b559923..fa7765cac 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -115,7 +115,7 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
+     endif()
+ endif()
+ 
+-set (VERSION_FILE "${CMAKE_SOURCE_DIR}/VERSION")
++set(PACKAGE_VERSION "1.5.5-33-g38b2398")
+ 
+ # Update version file or use it when there is no git
+ # repository within sources (source tarballs).
+diff --git a/VERSION b/VERSION
+deleted file mode 100644
+index 588b741ac..000000000
+--- a/VERSION
++++ /dev/null
+@@ -1 +0,0 @@
+-1.5.5-33-g38b2398
+diff --git a/src/lua/digest.lua b/src/lua/digest.lua
+index f3d789331..b712711b2 100644
+--- a/src/lua/digest.lua
++++ b/src/lua/digest.lua
+@@ -30,6 +30,7 @@ ffi.cdef[[
+ local ssl
+ if ssl == nil then
+     local variants = {
++		'/usr/local/opt/openssl/lib/libssl.dylib',
+         'libssl.so.10',
+         'libssl.so.1.0.0',
+         'libssl.so.0.9.8',
+diff --git a/third_party/libeio/ecb.h b/third_party/libeio/ecb.h
+index 81879d701..a4cc4ffc3 100644
+--- a/third_party/libeio/ecb.h
++++ b/third_party/libeio/ecb.h
+@@ -472,7 +472,7 @@ ecb_inline uint64_t ecb_rotr64 (uint64_t x, unsigned int count) { return (x << (
+   #define ecb_unreachable() __builtin_unreachable ()
+ #else
+   /* this seems to work fine, but gcc always emits a warning for it :/ */
+-  ecb_inline void ecb_unreachable (void) ecb_noreturn;
++  ecb_inline ecb_noreturn void ecb_unreachable (void);
+   ecb_inline void ecb_unreachable (void) { }
+ #endif
+ 
+diff --git a/third_party/libev/ev.c b/third_party/libev/ev.c
+index 347f3c539..b043bf0ba 100644
+--- a/third_party/libev/ev.c
++++ b/third_party/libev/ev.c
+@@ -932,7 +932,7 @@ ecb_inline uint64_t ecb_rotr64 (uint64_t x, unsigned int count) { return (x << (
+   #define ecb_unreachable() __builtin_unreachable ()
+ #else
+   /* this seems to work fine, but gcc always emits a warning for it :/ */
+-  ecb_inline void ecb_unreachable (void) ecb_noreturn;
++  ecb_inline ecb_noreturn void ecb_unreachable (void);
+   ecb_inline void ecb_unreachable (void) { }
+ #endif
+ 
+-- 
+2.44.0
+
