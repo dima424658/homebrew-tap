@@ -1,18 +1,16 @@
 class TarantoolAT211 < Formula
   desc "In-memory database and Lua application server"
   homepage "https://tarantool.org/"
-  url "https://download.tarantool.org/tarantool/src/tarantool-2.11.3.tar.gz"
-  sha256 "6fe368eedad73422c004ba5d2623a5710b4b684b77fe2d54cca727ed58b7b6cb"
+  url "https://download.tarantool.org/tarantool/src/tarantool-2.11.4.tar.gz"
+  sha256 "454bb48a7b3c66f353c1005728f1f19247b0b470991bf2347b8986fce2a7bc9f"
   license "BSD-2-Clause"
   version_scheme 1
-  head "https://github.com/tarantool/tarantool.git", branch: "2.11.3"
+  head "https://github.com/tarantool/tarantool.git", branch: "2.11.4"
 
   depends_on "cmake" => :build
   depends_on "icu4c"
-  depends_on "libyaml"
   depends_on "openssl@3"
   depends_on "readline"
-  depends_on "zstd"
 
   uses_from_macos "curl"
   uses_from_macos "ncurses"
@@ -35,8 +33,8 @@ class TarantoolAT211 < Formula
     args << "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}"
     args << "-DREADLINE_ROOT=#{Formula["readline"].opt_prefix}"
     args << "-DENABLE_BUNDLED_LIBCURL=OFF"
-    args << "-DENABLE_BUNDLED_LIBYAML=OFF"
-    args << "-DENABLE_BUNDLED_ZSTD=OFF"
+    args << "-DENABLE_BUNDLED_LIBYAML=ON"
+    args << "-DENABLE_BUNDLED_ZSTD=ON"
 
     if OS.mac?
       if MacOS.version >= :big_sur
@@ -54,7 +52,7 @@ class TarantoolAT211 < Formula
       args << "-DCURSES_NCURSES_LIBRARY=#{sdk}/usr/lib/libncurses.#{lib_suffix}"
       args << "-DICONV_INCLUDE_DIR=#{sdk}/usr/include"
     else
-      args << "-DENABLE_BUNDLED_LIBUNWIND=OFF"
+      args << "-DENABLE_BUNDLED_LIBUNWIND=ON"
       args << "-DCURL_ROOT=#{Formula["curl"].opt_prefix}"
     end
 
