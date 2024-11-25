@@ -1,0 +1,23 @@
+From b244d17fa00b6fca45eb5e50f7e003cc4381809d Mon Sep 17 00:00:00 2001
+From: Dmitry Pankov <dk.pankov@vk.team>
+Date: Thu, 8 Feb 2024 12:14:43 +0300
+Subject: [PATCH] fix version
+
+---
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index 59ecdb2..ee85e40 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -1,5 +1,5 @@
+ package.name = "shadowplay"
+-package.version = "0.16.3"
++package.version = "0.17.1"
+ package.edition = "2021"
+ package.authors = ["Evgenii Lepikhin <e.lepikhin@corp.mail.ru>", "VK Company / mail.ru"]
+ package.readme = "README.md"
+-- 
+2.43.0
+
